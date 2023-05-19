@@ -50,7 +50,6 @@ class UserProfileController extends Controller
             'message' => 'Profile Updated Successfully',
             'alert-type' => 'success'
         );
-        // Session::flash('message', 'Profile Updated Successfully');
         return redirect()->route('dashboard')->with($message);
     }
 
@@ -62,7 +61,11 @@ class UserProfileController extends Controller
                 'password' => Hash::make($request->password)
             ]);
         }
-        Session::flash('message', 'Password Updated Successfully');
-        return redirect()->route('dashboard');
+        $message = array(
+            'message' => 'Password Updated Successfully',
+            'alert-type' => 'success'
+        );
+        Auth::logout($user);
+        return redirect()->route('login')->with($message);
     }
 }
