@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminProfileController;
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\EndUser\HomeController;
 use App\Http\Controllers\EndUser\UserProfileController;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +43,19 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     Route::prefix('/{adminId}')->group(function () {
         Route::get('/profile/edit', [AdminProfileController::class, 'edit'])->name('profile.edit');
         Route::put('/profile/update', [AdminProfileController::class, 'update'])->name('profile.update');
+    });
+    ///////Brands Route///////
+    Route::group(['prefix' => 'brands', 'as' => 'brands.'], function () {
+        Route::get('/', [BrandController::class, 'index'])->name('index');
+        Route::get('/create', [BrandController::class, 'create'])->name('create');
+        Route::post('/store', [BrandController::class, 'store'])->name('store');
+        Route::prefix('{brandId}')->group(function () {
+            Route::get('/edit', [BrandController::class, 'edit'])->name('edit');
+            Route::put('/update', [BrandController::class, 'update'])->name('update');
+            Route::get('/delete', [BrandController::class, 'destroy'])->name('destroy');
+        });
+
+
     });
 
 

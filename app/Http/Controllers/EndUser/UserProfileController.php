@@ -38,13 +38,13 @@ class UserProfileController extends Controller
                 $image,
                 'user/profile/',
                 $imageName,
-                'user/profile/' . $profile->profile_path_photo
+                'user/profile/' . $profile->profile_photo_path
             );
         }
         $profile->update([
             'name' => $request->name,
             'email' => $request->email,
-            'profile_photo_path' => $imageName ?? $profile->profile_photo_name
+            'profile_photo_path' => $imageName ?? $profile->profile_photo_path
         ]);
         $message = array(
             'message' => 'Profile Updated Successfully',

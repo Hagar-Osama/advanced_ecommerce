@@ -83,7 +83,20 @@ return [
     |
     */
 
-    'locale' => 'en',
+    // 'locale' => 'en',
+    'locale' => env('APP_LOCALE', 'en'),
+    'languages' => [
+        [
+            'locale' => 'en',
+            'direction' => 'ltr',
+            'name' => 'English'
+        ],
+        [
+            'locale' => 'ar',
+            'direction' => 'rtl',
+            'name' => 'Arabic'
+        ],
+    ],
 
     /*
     |--------------------------------------------------------------------------

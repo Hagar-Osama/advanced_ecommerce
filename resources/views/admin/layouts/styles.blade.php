@@ -16,5 +16,9 @@
 	<!-- Style-->
 	<link rel="stylesheet" href="{{asset('backend/css/style.css')}}">
 	<link rel="stylesheet" href="{{asset('backend/css/skin_color.css')}}">
+	<!-- Sweet Alert Style-->
+
+    <link rel="stylesheet" href="sweetalert2.min.css">
+
 
   </head>
