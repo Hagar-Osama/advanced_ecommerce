@@ -53,7 +53,6 @@ class CategoryController extends Controller
         $category = Category::findOrFail($catId);
         $categories = Category::whereNull('category_id')->get();
         $subCategories = Category::whereNotNull('category_id')->get();
-        dd($category,$categories, $subCategories);
         return view('admin.categories.edit', compact('category', 'categories', 'subCategories'));
     }
 
