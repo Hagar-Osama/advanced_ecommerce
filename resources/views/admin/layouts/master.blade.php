@@ -1,6 +1,9 @@
 @include('admin.layouts.styles')
 
-<body class="hold-transition dark-skin sidebar-mini theme-primary fixed">
+<body class="hold-transition dark-skin sidebar-mini theme-primary fixed" data-locale="{{ app()->getLocale() }}">
+    >
+
+
 
 <div class="wrapper">
 

@@ -37,18 +37,17 @@
           </ul>
         </li>
 
-        <li class="treeview">
+        <li class="treeview {{request()->routeIs('admin.categories*') ? 'active' : ""}}">
           <a href="#">
-            <i data-feather="mail"></i> <span>Mailbox</span>
+            <i data-feather="mail"></i> <span>Category</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-right pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="mailbox_inbox.html"><i class="ti-more"></i>Inbox</a></li>
-            <li><a href="mailbox_compose.html"><i class="ti-more"></i>Compose</a></li>
-            <li><a href="mailbox_read_mail.html"><i class="ti-more"></i>Read</a></li>
+            <li><a href="{{route('admin.categories.index')}}"><i class="ti-more"></i>View</a></li>
           </ul>
+
         </li>
 
         <li class="treeview">

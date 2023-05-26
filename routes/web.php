@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EndUser\HomeController;
 use App\Http\Controllers\EndUser\UserProfileController;
 use Illuminate\Support\Facades\Route;
@@ -58,6 +59,20 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
 
     });
 
+       ///////Categories Route///////
+       Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('index');
+        Route::get('/create', [CategoryController::class, 'create'])->name('create');
+        Route::post('/store', [CategoryController::class, 'store'])->name('store');
+        Route::prefix('{categoryId}')->group(function () {
+            Route::get('/edit', [CategoryController::class, 'edit'])->name('edit');
+            Route::put('/update', [CategoryController::class, 'update'])->name('update');
+            Route::get('/delete', [CategoryController::class, 'destroy'])->name('destroy');
+        });
+        Route::get('/subcategory/ajax/{category_id}', [CategoryController::class, 'getChildCategory']);
+
+
+    });
 
 
     // Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');;
