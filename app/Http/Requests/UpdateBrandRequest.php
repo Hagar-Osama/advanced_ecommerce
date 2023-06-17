@@ -23,8 +23,10 @@ class UpdateBrandRequest extends FormRequest
     {
         return [
             'image' => 'nullable|image|mimes:png,jpg,jpeg',
+            'name' => 'array',
             'name.*' => 'min:3|string',
             'slug.*' => 'min:3|string',
+            'slug' => 'array',
         ];
     }
 }

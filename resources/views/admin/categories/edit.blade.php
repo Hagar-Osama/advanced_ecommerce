@@ -118,7 +118,7 @@
     </section>
 @endsection
 @section('js')
-    <script>
+    {{-- <script>
      $(document).ready(function() {
     $('#category-select').on('change', function(){
         var locale = $('body').data('locale');
@@ -151,6 +151,6 @@
         return false;
     });
 });
-    </script>
+    </script> --}}
 @endsection
 

@@ -5,7 +5,7 @@
 @section('content')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <section class="content">
-        {{-- @if ($errors->any())
+        @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)
@@ -13,7 +13,7 @@
                     @endforeach
                 </ul>
             </div>
-        @endif --}}
+        @endif
         <!-- Basic Forms -->
         <div class="box">
             <div class="box-header with-border">
@@ -69,7 +69,7 @@
                                             <div class="form-group">
                                                 <h5>Category <span class="text-danger"></span></h5>
                                                 <div class="controls">
-                                                    <select name="category_id" id="category-select" required
+                                                    <select name="category_id" id="category-select"
                                                         class="form-control">
                                                         <option value="">Select Your Category</option>
                                                         @foreach ($categories as $category)
@@ -87,7 +87,7 @@
                                             <div class="form-group">
                                                 <h5>Sub Category <span class="text-danger"></span></h5>
                                                 <div class="controls">
-                                                    <select name="category_id" id="subcategory-select" required
+                                                    <select name="category_id" id="subcategory-select"
                                                         class="form-control">
 
                                                     </select>
@@ -150,41 +150,7 @@
     });
 });
     </script> --}}
-    <script>
-        $(document).ready(function() {
-            var $categorySelect = $('#category-select');
-            var $subcategorySelect = $('#subcategory-select');
-            var locale = $('body').data('locale');
 
-            $categorySelect.on('change', function() {
-                var categoryId = $categorySelect.val();
-
-                if (categoryId) {
-                    $.get("{{ url('admin/categories/subcategory/ajax') }}/" + categoryId, function(data) {
-                        $subcategorySelect.empty().append(
-                            '<option selected disabled>Choose Your Sub Category</option>');
-                        data = JSON.parse(data);
-                        $.each(data, function(key, value) {
-                            if (value.id && value.name && value.name[locale]) {
-                                $subcategorySelect.append('<option value="' + value.id +
-                                    '">' + value.name[locale] + '</option>');
-                            }
-                        });
-                        $subcategorySelect.show();
-                    });
-                } else {
-                    $subcategorySelect.hide();
-                }
-            });
-
-            $subcategorySelect.on('change', function(event) {
-                event.preventDefault();
-                var subcategoryId = $subcategorySelect.val();
-                console.log(subcategoryId);
-                return false;
-            });
-        });
-    </script>
 @endsection
 {{--
 

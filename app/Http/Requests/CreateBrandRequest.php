@@ -24,7 +24,9 @@ class CreateBrandRequest extends FormRequest
         return  [
 
                 'image' => 'nullable|image|mimes:png,jpg,jpeg',
+                'name' => 'required|array',
                 'name.*' => 'required|min:3',
+                'slug' => 'required|array',
                 'slug.*' => 'required',
         ];
 

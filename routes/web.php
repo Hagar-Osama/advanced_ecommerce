@@ -4,8 +4,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\EndUser\HomeController;
 use App\Http\Controllers\EndUser\UserProfileController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SizeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,12 +58,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
             Route::put('/update', [BrandController::class, 'update'])->name('update');
             Route::get('/delete', [BrandController::class, 'destroy'])->name('destroy');
         });
-
-
     });
 
-       ///////Categories Route///////
-       Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {
+    ///////Categories Route///////
+    Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {
         Route::get('/', [CategoryController::class, 'index'])->name('index');
         Route::get('/create', [CategoryController::class, 'create'])->name('create');
         Route::post('/store', [CategoryController::class, 'store'])->name('store');
@@ -70,10 +71,41 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
             Route::get('/delete', [CategoryController::class, 'destroy'])->name('destroy');
         });
         Route::get('/subcategory/ajax/{category_id}', [CategoryController::class, 'getChildCategory']);
+    });
+
+    ///////PRODUCTS Route///////
+    Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
+        Route::get('/', [ProductController::class, 'index'])->name('index');
+        Route::get('/create', [ProductController::class, 'create'])->name('create');
+        Route::post('/store', [ProductController::class, 'store'])->name('store');
+        Route::prefix('{productId}')->group(function () {
+            Route::get('/edit', [ProductController::class, 'edit'])->name('edit');
+            Route::put('/update', [ProductController::class, 'update'])->name('update');
+            Route::get('/delete', [ProductController::class, 'destroy'])->name('destroy');
+        });
+        Route::put('image', [ProductController::class, 'updateImages'])->name('updateImage');
+        Route::get('image/{imageId}/delete', [ProductController::class, 'deleteImage'])->name('deleteImage');
 
 
     });
-
+    ///////Colors Route///////
+    Route::group(['prefix' => 'colors', 'as' => 'colors.'], function () {
+        Route::get('/', [ColorController::class, 'index'])->name('index');
+        Route::post('/store', [ColorController::class, 'store'])->name('store');
+        Route::prefix('{colorId}')->group(function () {
+            Route::put('/update', [ColorController::class, 'update'])->name('update');
+            Route::get('/delete', [ColorController::class, 'destroy'])->name('destroy');
+        });
+    });
+    ///////Sizes Route///////
+    Route::group(['prefix' => 'sizes', 'as' => 'sizes.'], function () {
+        Route::get('/', [SizeController::class, 'index'])->name('index');
+        Route::post('/store', [SizeController::class, 'store'])->name('store');
+        Route::prefix('{sizeId}')->group(function () {
+            Route::put('/update', [SizeController::class, 'update'])->name('update');
+            Route::get('/delete', [SizeController::class, 'destroy'])->name('destroy');
+        });
+    });
 
     // Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');;
 

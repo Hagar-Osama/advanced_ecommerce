@@ -53,17 +53,15 @@
         <li class="treeview">
           <a href="#">
             <i data-feather="file"></i>
-            <span>Pages</span>
+            <span>Products</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-right pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="profile.html"><i class="ti-more"></i>Profile</a></li>
-            <li><a href="invoice.html"><i class="ti-more"></i>Invoice</a></li>
-            <li><a href="gallery.html"><i class="ti-more"></i>Gallery</a></li>
-            <li><a href="faq.html"><i class="ti-more"></i>FAQs</a></li>
-            <li><a href="timeline.html"><i class="ti-more"></i>Timeline</a></li>
+            <li><a href="{{route('admin.colors.index')}}"><i class="ti-more"></i>Colors</a></li>
+            <li><a href="{{route('admin.sizes.index')}}"><i class="ti-more"></i>Sizes</a></li>
+            <li><a href="{{route('admin.products.index')}}"><i class="ti-more"></i>All Products</a></li>
           </ul>
         </li>
 

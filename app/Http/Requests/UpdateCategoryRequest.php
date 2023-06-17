@@ -23,7 +23,9 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'icon' => 'sometimes|nullable|string|max:200',
+            'name' => 'array',
             'name.*' => 'min:3|string',
+            'slug' => 'array',
             'slug.*' => 'min:3|string',
             'category_id' => 'sometimes|nullable|exists:categories,id'
 
