@@ -27,15 +27,18 @@ use Illuminate\Support\Facades\Route;
 // });
 
 //////////////////EndUser Routes///////////////////////////
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::group(['prefix' => 'user', 'middleware' => ['auth'], 'as' => 'user.'], function () {
-    Route::get('/logout', [UserProfileController::class, 'logout'])->name('logout');
-    Route::put('/profile/update/password', [UserProfileController::class, 'updatePassword'])->name('profile.updatePassword');
-    Route::prefix('/{userId}')->group(function () {
-        Route::get('/profile/edit', [UserProfileController::class, 'edit'])->name('profile.edit');
-        Route::put('/profile/update', [UserProfileController::class, 'update'])->name('profile.update');
+Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'],'middleware' => 'setLocale' ], function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::group(['prefix' => 'user', 'middleware' => ['auth'], 'as' => 'user.'], function () {
+        Route::get('/logout', [UserProfileController::class, 'logout'])->name('logout');
+        Route::put('/profile/update/password', [UserProfileController::class, 'updatePassword'])->name('profile.updatePassword');
+        Route::prefix('/{userId}')->group(function () {
+            Route::get('/profile/edit', [UserProfileController::class, 'edit'])->name('profile.edit');
+            Route::put('/profile/update', [UserProfileController::class, 'update'])->name('profile.update');
+        });
     });
 });
+
 
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']], function () {
@@ -85,8 +88,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
         });
         Route::put('image', [ProductController::class, 'updateImages'])->name('updateImage');
         Route::get('image/{imageId}/delete', [ProductController::class, 'deleteImage'])->name('deleteImage');
-
-
     });
     ///////Colors Route///////
     Route::group(['prefix' => 'colors', 'as' => 'colors.'], function () {

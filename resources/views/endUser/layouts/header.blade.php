@@ -30,9 +30,10 @@
               </li>
               <li class="dropdown dropdown-small"> <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">English </span><b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">English</a></li>
-                  <li><a href="#">French</a></li>
-                  <li><a href="#">German</a></li>
+                    @foreach(config('app.languages') as $language)
+                  <li><a href="{{route('home', ['locale' => $language['locale']])}}">{{$language['name']}}</a></li>
+                  @endforeach
+
                 </ul>
               </li>
             </ul>
@@ -52,7 +53,7 @@
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
             <!-- ============================================================= LOGO ============================================================= -->
-            <div class="logo"> <a href="{{route('home')}}"> <img src="{{asset('endUser/assets/images/logo.png')}}" alt="logo"> </a> </div>
+            <div class="logo"> <a href="{{route('home', ['locale' => app()->getLocale()])}}"> <img src="{{asset('endUser/assets/images/logo.png')}}" alt="logo"> </a> </div>
             <!-- /.logo -->
             <!-- ============================================================= LOGO : END ============================================================= --> </div>
           <!-- /.logo-holder -->
@@ -144,7 +145,7 @@
             <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
               <div class="nav-outer">
                 <ul class="nav navbar-nav">
-                  <li class="active dropdown yamm-fw"> <a href="{{route('home')}}" data-hover="dropdown" class="dropdown-toggle">Home</a> </li>
+                  <li class="active dropdown yamm-fw"> <a href="{{route('home', ['locale' => app()->getLocale()])}}" data-hover="dropdown" class="dropdown-toggle">{{trans('homePage.home')}}</a> </li>
                   <li class="dropdown yamm mega-menu"> <a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Clothing</a>
                     <ul class="dropdown-menu container">
                       <li>
