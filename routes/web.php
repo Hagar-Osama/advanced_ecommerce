@@ -9,6 +9,7 @@ use App\Http\Controllers\EndUser\HomeController;
 use App\Http\Controllers\EndUser\UserProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SizeController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,14 +23,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return redirect(App::getLocale());
+});
 
 //////////////////EndUser Routes///////////////////////////
-Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'],'middleware' => 'setLocale' ], function () {
+Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'], 'middleware' => 'setLocale'], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::post('/user/login', [UserProfileController::class, 'login'])->name('user.login');
     Route::group(['prefix' => 'user', 'middleware' => ['auth'], 'as' => 'user.'], function () {
+        Route::get('/dashboard', [UserProfileController::class, 'userDashboard'])->name('dashboard')->middleware('auth:sanctum,web', 'verified');
         Route::get('/logout', [UserProfileController::class, 'logout'])->name('logout');
         Route::put('/profile/update/password', [UserProfileController::class, 'updatePassword'])->name('profile.updatePassword');
         Route::prefix('/{userId}')->group(function () {
@@ -38,6 +41,7 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'],'mi
         });
     });
 });
+
 
 
 
@@ -120,9 +124,10 @@ Route::middleware(['auth:sanctum,admin', 'verified'])->group(function () {
     })->name('admin.index')->middleware('auth:admin');
 });
 
-
-Route::middleware(['auth:sanctum,web', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+// Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'], 'middleware' => 'setLocale'], function () {
+//     Route::middleware(['auth:sanctum,web', 'verified'])->group(function () {
+//         Route::get('/dashboard', function () {
+//             return view('dashboard');
+//         })->name('user.dashboard');
+//     });
+// });

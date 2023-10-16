@@ -31,7 +31,7 @@ class SetLocale
                 App::setLocale($lang);
             }
         }
-        URL::defaults(['locale' => app()->getLocale()]);
+        URL::defaults(['locale' => $lang]);
         return $next($request);
     }
 }

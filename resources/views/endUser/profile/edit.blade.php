@@ -18,7 +18,7 @@
                         @endif
 
                         <form class="register-form outer-top-xs" role="form" method="POST"
-                            action="{{ route('user.profile.update', $profile->id) }}" enctype="multipart/form-data">
+                            action="{{ route('user.profile.update',['locale' => app()->getLocale(),$profile->id]) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="form-group">

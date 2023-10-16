@@ -11,10 +11,10 @@
                         src="{{ !empty(auth()->guard('web')->user()->profile_photo_path) ? asset('storage/user/profile/' . auth()->guard('web')->user()->profile_photo_path) : asset('backend/images/no_image.jpg') }}"
                         alt="User Avatar" height="100%" width="100%"><br><br>
                     <ul class="list-group list-group-flush">
-                        <a href="{{ route('home') }}" class="btn btn-primary btn-sm btn-block">Home</a>
-                        <a href="{{ route('user.profile.edit', auth()->user()->id) }}"
+                        <a href="{{ route('home', ['locale' => app()->getLocale()]) }}" class="btn btn-primary btn-sm btn-block">Home</a>
+                        <a href="{{ route('user.profile.edit', ['locale' => app()->getLocale(), 'userId' => auth()->guard('web')->user()->id]) }}"
                             class="btn btn-primary btn-sm btn-block">Update Profile</a>
-                        <a href="{{ route('user.logout') }}" class="btn btn-danger btn-sm btn-block">Logout</a>
+                        <a href="{{ route('user.logout', ['locale' => app()->getLocale()]) }}" class="btn btn-danger btn-sm btn-block">Logout</a>
 
                     </ul>
                 </div>
@@ -26,7 +26,7 @@
                     <div class="card">
                         <h3 class="text-center"><span
                                 class="text-danger">Hi...</span><strong>{{ ucFirst(auth()->guard('web')->user()->name) }}
-                            </strong>Welcome To Online Shopping</h3>
+                            </strong>{{trans('homePage.Welcome To Online Shopping')}}</h3>
 
                     </div>
                 </div>

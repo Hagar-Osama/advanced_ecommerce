@@ -7,7 +7,7 @@
         <div class="container">
             <div class="breadcrumb-inner">
                 <ul class="list-inline list-unstyled">
-                    <li><a href="{{ route('home') }}">Home</a></li>
+                    <li><a href="{{ route('home', ['locale' => app()->getLocale()]) }}">Home</a></li>
                     <li class='active'>Login</li>
                 </ul>
             </div><!-- /.breadcrumb-inner -->
@@ -23,8 +23,7 @@
                         <h4 class="">Sign in</h4>
                         <p class="">Hello, Welcome to your account.</p>
                         <div class="social-sign-in outer-top-xs">
-                            <a href="#" class="facebook-sign-in"><i class="fa fa-facebook"></i> Sign In with
-                                Facebook</a>
+                            <a href="#" class="facebook-sign-in"><i class="fa fa-facebook"></i> {{trans('homePage.Sign In with Facebook')}}</a>
                             <a href="#" class="twitter-sign-in"><i class="fa fa-twitter"></i> Sign In with Twitter</a>
                         </div><br>
                         @if (session('status'))
@@ -34,7 +33,7 @@
                         @endif
 
                         <form class="register-form outer-top-xs" role="form" method="POST"
-                            action="{{ isset($guard) ? url($guard . '/login') : route('login') }}">
+                            action="{{ isset($guard) ? url($guard . '/login') : route('user.login', ['locale' => app()->getLocale()]) }}">
                             @csrf
                             <div class="form-group">
                                 <label class="info-title" for="exampleInputEmail1">Email Address <span>*</span></label>

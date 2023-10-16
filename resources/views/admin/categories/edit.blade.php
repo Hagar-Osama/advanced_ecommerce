@@ -66,7 +66,7 @@
                                             <div class="form-group">
                                                 <h5>Category <span class="text-danger"></span></h5>
                                                 <div class="controls">
-                                                    <select name="category_id" id="category-select" required class="form-control">
+                                                    <select name="category_id" id="category-select"  class="form-control">
                                                         <option value="">Select Your Category</option>
                                                         @foreach ($categories as $cat)
                                                             <option
@@ -85,7 +85,7 @@
 
                                                 <h5>Sub Category <span class="text-danger"></span></h5>
                                                 <div class="controls">
-                                                    <select name="category_id" id="subcategory-select" required class="form-control">
+                                                    <select name="category_id" id="subcategory-select"  class="form-control">
                                                         <option value="">Select Your Sub Category</option>
                                                         @foreach ($subCategories as $subCategory)
                                                             <option

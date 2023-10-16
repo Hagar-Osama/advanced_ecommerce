@@ -6,7 +6,7 @@
         <div class="header-top-inner">
           <div class="cnt-account">
             <ul class="list-unstyled">
-              <li><a href="{{route('dashboard')}}"><i class="icon fa fa-user"></i>My Account</a></li>
+              <li><a href="{{route('user.dashboard',['locale' => app()->getLocale()])}}"><i class="icon fa fa-user"></i>My Account</a></li>
               <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
               <li><a href="#"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
               <li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
@@ -31,7 +31,7 @@
               <li class="dropdown dropdown-small"> <a href="#" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span class="value">English </span><b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     @foreach(config('app.languages') as $language)
-                  <li><a href="{{route('home', ['locale' => $language['locale']])}}">{{$language['name']}}</a></li>
+                  <li><a href="{{route(Route::currentRouteName(), ['locale' => $language['locale']])}}">{{$language['name']}}</a></li>
                   @endforeach
 
                 </ul>
@@ -146,66 +146,28 @@
               <div class="nav-outer">
                 <ul class="nav navbar-nav">
                   <li class="active dropdown yamm-fw"> <a href="{{route('home', ['locale' => app()->getLocale()])}}" data-hover="dropdown" class="dropdown-toggle">{{trans('homePage.home')}}</a> </li>
-                  <li class="dropdown yamm mega-menu"> <a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Clothing</a>
+                  @foreach($categories as $category)
+                  <li class="dropdown yamm mega-menu"> <a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">{{$category->name->{app()->getLocale()} }}</a>
                     <ul class="dropdown-menu container">
                       <li>
                         <div class="yamm-content ">
                           <div class="row">
+                            @if(count($category->children) > 0)
+                            @foreach($category->children as $child)
                             <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                              <h2 class="title">Men</h2>
+                              <h2 class="title">{{$child->name->{app()->getLocale()} }}</h2>
+                              @if(count($child->children) > 0)
+                              @foreach($child->children as $item)
                               <ul class="links">
-                                <li><a href="#">Dresses</a></li>
-                                <li><a href="#">Shoes </a></li>
-                                <li><a href="#">Jackets</a></li>
-                                <li><a href="#">Sunglasses</a></li>
-                                <li><a href="#">Sport Wear</a></li>
-                                <li><a href="#">Blazers</a></li>
-                                <li><a href="#">Shirts</a></li>
-                              </ul>
-                            </div>
-                            <!-- /.col -->
+                                <li><a href="#">{{$item->name->{app()->getLocale()} }}</a></li>
 
-                            <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                              <h2 class="title">Women</h2>
-                              <ul class="links">
-                                <li><a href="#">Handbags</a></li>
-                                <li><a href="#">Jwellery</a></li>
-                                <li><a href="#">Swimwear </a></li>
-                                <li><a href="#">Tops</a></li>
-                                <li><a href="#">Flats</a></li>
-                                <li><a href="#">Shoes</a></li>
-                                <li><a href="#">Winter Wear</a></li>
                               </ul>
+                              @endforeach
+                              @endif
                             </div>
-                            <!-- /.col -->
+                            @endforeach
+                            @endif
 
-                            <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                              <h2 class="title">Boys</h2>
-                              <ul class="links">
-                                <li><a href="#">Toys & Games</a></li>
-                                <li><a href="#">Jeans</a></li>
-                                <li><a href="#">Shirts</a></li>
-                                <li><a href="#">Shoes</a></li>
-                                <li><a href="#">School Bags</a></li>
-                                <li><a href="#">Lunch Box</a></li>
-                                <li><a href="#">Footwear</a></li>
-                              </ul>
-                            </div>
-                            <!-- /.col -->
-
-                            <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                              <h2 class="title">Girls</h2>
-                              <ul class="links">
-                                <li><a href="#">Sandals </a></li>
-                                <li><a href="#">Shorts</a></li>
-                                <li><a href="#">Dresses</a></li>
-                                <li><a href="#">Jwellery</a></li>
-                                <li><a href="#">Bags</a></li>
-                                <li><a href="#">Night Dress</a></li>
-                                <li><a href="#">Swim Wear</a></li>
-                              </ul>
-                            </div>
-                            <!-- /.col -->
 
                             <div class="col-xs-12 col-sm-6 col-md-4 col-menu banner-image"> <img class="img-responsive" src="{{asset('endUser/assets/images/banners/top-menu-banner.jpg')}}" alt=""> </div>
                             <!-- /.yamm-content -->
@@ -292,6 +254,7 @@
                         <!-- /.yamm-content --> </li>
                     </ul>
                   </li>
+                  @endforeach
                   <li class="dropdown hidden-sm"> <a href="category.html">Health & Beauty <span class="menu-label new-menu hidden-xs">new</span> </a> </li>
                   <li class="dropdown hidden-sm"> <a href="category.html">Watches</a> </li>
                   <li class="dropdown"> <a href="contact.html">Jewellery</a> </li>
